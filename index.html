@@ -275,8 +275,8 @@
 
         /* Cadre rectangulaire pour la photo - PLUS GRAND */
         .boss-photo-container {
-            width: 500px; /* Augmenté */
-            height: 375px; /* Augmenté */
+            width: 800px; /* Augmenté */
+            height: 400px; /* Augmenté */
             margin: 2rem auto;
             border: 10px solid var(--gold); /* Bordure plus épaisse */
             border-radius: 20px; /* Coins plus arrondis */
@@ -293,6 +293,16 @@
             object-fit: cover;
             border-radius: 12px; /* Coins arrondis pour la photo */
         }
+
+        .boss-photo-container {
+            width: 100%;
+            max-width: 100%;           /* pour ne pas dépasser l’écran */
+            height: 60vh;              /* 60% de la hauteur de l’écran */
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            margin: 0 auto;            /* centré si plus tard tu limites la largeur */
+          }
 
         .balloon-img {
             position: absolute;
@@ -564,8 +574,8 @@
     <!-- Section 10: Clôture -->
     <section id="closure">
         <div class="closure-text">
-            Un leader ne crée pas seulement du travail,<br>
-            mais des histoires qu'on n'oublie pas.
+            Merci d'être un leader qui ne crée pas seulement du travail,<br>
+            mais aussi des histoires qu'on n'oublie pas.
         </div>
     </section>
 
