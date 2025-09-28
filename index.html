@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anniversaire du Boss</title>
+    <!-- Polices -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Lottie -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/TextPlugin.min.js"></script>
+    <!-- Confettis réalistes -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        /* Variables CSS */
+        :root {
+            --deep-black: #0b0b0b;
+            --night-blue: #0a1128;
+            --dark-gray: #1a1a2e;
+            --warm-white: #f5f5f5;
+            --gold: #FFD700;
+            --light-blue: #4a90e2;
+            --light-gray: #AAAAAA;
+        }
+
+        /* Reset et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, var(--night-blue), var(--dark-gray));
+            color: var(--warm-white);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Sections générales */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Section 1: Introduction */
+        #intro {
+            background-color: var(--deep-black);
+        }
+
+        .date-text {
+            font-size: 2.5rem;
+            font-weight: 500;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            animation: pulse 3s infinite alternate;
+            margin-bottom: 2rem;
+        }
+
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); }
+            100% { text-shadow: 0 0 20px rgba(255, 255, 255, 1); }
+        }
+
+        /* Section 2: Révélation */
+        #revelation {
+            background: linear-gradient(135deg, var(--night-blue), var(--dark-gray));
+        }
+
+        .boss-text {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .boss-name {
+            color: var(--gold);
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        /* Section 3: Simulation message */
+        #message-simulation {
+            background: linear-gradient(135deg, var(--dark-gray), var(--night-blue));
+        }
+
+        .message-container {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 2rem;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .message-input {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            min-height: 100px;
+            text-align: left;
+        }
+
+        .send-button {
+            background-color: var(--light-blue);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.8rem 1.5rem;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .send-button:hover {
+            background-color: #3a80d2;
+        }
+
+        /* Section 4: Auto-critique */
+        #auto-critique {
+            background-color: var(--deep-black);
+        }
+
+        .critique-text {
+            font-size: 2rem;
+            font-style: italic;
+            color: var(--light-gray);
+            transform: skewX(-5deg);
+            line-height: 1.6;
+        }
+
+        /* Section 5: Montée émotionnelle - AMÉLIORÉE */
+        #emotional-rise {
+            background: linear-gradient(135deg, var(--dark-gray), var(--night-blue));
+        }
+
+        .emotional-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+        }
+
+        .emotional-slide.active {
+            opacity: 1;
+        }
+
+        .emotional-text {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cursive {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .highlight {
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        /* Animation pour "Parce que..." */
+        .animated-text {
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .animated-char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Section 6: Graphique */
+        #graphic {
+            background-color: var(--deep-black);
+        }
+
+        .graphic-container {
+            width: 80%;
+            max-width: 800px;
+            height: 400px;
+            position: relative;
+        }
+
+        .chart {
+            width: 100%;
+            height: 100%;
+        }
+
+        .graphic-text {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        /* Section 7: Explosion festive - AMÉLIORÉE */
+        #celebration {
+            background: linear-gradient(135deg, var(--night-blue), #2a3c6d);
+            transition: background 2s ease;
+        }
+
+        .celebration-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .celebration-text {
+            font-size: 4rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--gold), #ff8c00, #ff0080, #8a2be2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 2rem;
+        }
+
+        .boss-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+            margin: 2rem auto;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .balloon-img {
+            position: absolute;
+            width: 80px;
+            height: auto;
+            z-index: 1;
+        }
+
+        /* Section 8: Partie collective */
+        #team-section {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        .team-button {
+            background-color: var(--light-blue);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+            margin-bottom: 3rem;
+        }
+
+        .cards-container {
+            display: none;
+            width: 80%;
+            max-width: 1000px;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: left;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-front, .card-back {
+            backface-visibility: hidden;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--gold);
+            border-radius: 10px;
+        }
+
+        /* Section 9: Clôture */
+        #closure {
+            background-color: var(--deep-black);
+            transition: opacity 3s ease;
+        }
+
+        .closure-text {
+            font-size: 2rem;
+            font-style: italic;
+            line-height: 1.6;
+            max-width: 800px;
+        }
+
+        /* Navigation entre sections */
+        .nav-dots {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dot.active {
+            background-color: var(--gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .date-text, .boss-text, .emotional-text {
+                font-size: 2rem;
+            }
+            
+            .celebration-text {
+                font-size: 2.5rem;
+            }
+            
+            .closure-text {
+                font-size: 1.5rem;
+            }
+            
+            .team-button {
+                width: 150px;
+                height: 150px;
+                font-size: 1.2rem;
+            }
+            
+            .boss-photo {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .balloon-img {
+                width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation par points -->
+    <div class="nav-dots">
+        <div class="dot active" data-section="intro"></div>
+        <div class="dot" data-section="revelation"></div>
+        <div class="dot" data-section="message-simulation"></div>
+        <div class="dot" data-section="auto-critique"></div>
+        <div class="dot" data-section="emotional-rise"></div>
+        <div class="dot" data-section="graphic"></div>
+        <div class="dot" data-section="celebration"></div>
+        <div class="dot" data-section="team-section"></div>
+        <div class="dot" data-section="closure"></div>
+    </div>
+
+    <!-- Section 1: Introduction -->
+    <section id="intro">
+        <div class="date-text" id="date-text"></div>
+    </section>
+
+    <!-- Section 2: Révélation -->
+    <section id="revelation">
+        <div class="boss-text">
+            C'est l'anniversaire de notre <span class="boss-name">Boss</span> 🎉
+        </div>
+    </section>
+
+    <!-- Section 3: Simulation message -->
+    <section id="message-simulation">
+        <div class="message-container">
+            <div class="message-input" id="message-input"></div>
+            <button class="send-button" id="send-button">
+                <lottie-player 
+                    id="send-lottie"
+                    src="https://assets1.lottiefiles.com/packages/lf20_gns0r2jq.json" 
+                    background="transparent" 
+                    speed="1" 
+                    style="width: 24px; height: 24px; display: inline-block; vertical-align: middle;"
+                    autoplay>
+                </lottie-player>
+                Envoyer
+            </button>
+        </div>
+    </section>
+
+    <!-- Section 4: Auto-critique -->
+    <section id="auto-critique">
+        <div class="critique-text">
+            <p>Non...</p>
+            <p>Ça, c'était trop banal.</p>
+        </div>
+    </section>
+
+    <!-- Section 5: Montée émotionnelle - AMÉLIORÉE -->
+    <section id="emotional-rise">
+        <div class="emotional-slide active" id="slide1">
+            <div class="emotional-text cursive">
+                <span class="animated-text" id="parce-que-text"></span>
+            </div>
+        </div>
+        <div class="emotional-slide" id="slide2">
+            <div class="emotional-text">Vous êtes <span class="highlight">spécial</span>.</div>
+        </div>
+        <div class="emotional-slide" id="slide3">
+            <div class="emotional-text">Vous <span class="highlight">inspirez</span>.</div>
+        </div>
+        <div class="emotional-slide" id="slide4">
+            <div class="emotional-text">Vous méritez <span class="highlight">mieux</span>.</div>
+        </div>
+    </section>
+
+    <!-- Section 6: Graphique -->
+    <section id="graphic">
+        <div class="graphic-container">
+            <canvas id="growth-chart" class="chart"></canvas>
+        </div>
+        <div class="graphic-text">Chaque année, avec vous, nous allons plus haut.</div>
+    </section>
+
+    <!-- Section 7: Explosion festive - AMÉLIORÉE -->
+    <section id="celebration">
+        <div class="celebration-content">
+            <div class="celebration-text">Happy Birthday to You 🎂</div>
+            
+            <!-- Photo du Boss -->
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                 alt="Notre Boss" class="boss-photo" id="boss-photo">
+            
+            <!-- Galerie de photos supplémentaires (optionnelle) -->
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+                <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" 
+                     alt="Boss en réunion" style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px;">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" 
+                     alt="Boss qui inspire" style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px;">
+                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" 
+                     alt="Boss leader" style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px;">
+            </div>
+        </div>
+        
+        <!-- Conteneur pour les ballons images -->
+        <div id="balloons-container"></div>
+    </section>
+
+    <!-- Section 8: Partie collective -->
+    <section id="team-section">
+        <button class="team-button" id="team-button">Voir les vœux de l'équipe</button>
+        <div class="cards-container" id="cards-container">
+            <!-- Les cartes seront générées dynamiquement -->
+        </div>
+    </section>
+
+    <!-- Section 9: Clôture -->
+    <section id="closure">
+        <div class="closure-text">
+            Un leader ne crée pas seulement du travail,<br>
+            mais des histoires qu'on n'oublie pas.
+        </div>
+    </section>
+
+    <script>
+        // Initialisation de GSAP avec le plugin Text
+        gsap.registerPlugin(TextPlugin);
+
+        // Variables globales
+        let currentSection = 0;
+        const sections = document.querySelectorAll('section');
+        const dots = document.querySelectorAll('.dot');
+
+        // Section 1: Introduction avec effet machine à écrire
+        function initIntro() {
+            const dateText = document.getElementById('date-text');
+            
+            // Obtenir la date actuelle
+            const today = new Date();
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            const dateString = `Aujourd'hui, ${today.toLocaleDateString('fr-FR', options)}...`;
+            
+            // Effet machine à écrire
+            gsap.to(dateText, {
+                duration: 3,
+                text: dateString,
+                ease: "none",
+                onComplete: () => {
+                    // Après 2 secondes, transition vers la section suivante
+                    setTimeout(() => {
+                        navigateToSection(1);
+                    }, 2000);
+                }
+            });
+        }
+
+        // Section 2: Révélation avec effet sur "Boss"
+        function initRevelation() {
+            const bossName = document.querySelector('.boss-name');
+            
+            // Animation d'apparition du mot "Boss"
+            gsap.fromTo(bossName, 
+                { scale: 0, opacity: 0 },
+                { scale: 1, opacity: 1, duration: 1, ease: "back.out(1.7)" }
+            );
+            
+            // Transition après 3 secondes
+            setTimeout(() => {
+                navigateToSection(2);
+            }, 3000);
+        }
+
+        // Section 3: Simulation d'envoi de message
+        function initMessageSimulation() {
+            const messageInput = document.getElementById('message-input');
+            const sendButton = document.getElementById('send-button');
+            
+            // Texte qui s'écrit automatiquement
+            gsap.to(messageInput, {
+                duration: 4,
+                text: "Happy Birthday, meilleurs vœux...",
+                ease: "none",
+                onComplete: () => {
+                    // Animation du bouton
+                    gsap.to(sendButton, {
+                        duration: 0.5,
+                        scale: 1.1,
+                        repeat: 3,
+                        yoyo: true,
+                        onComplete: () => {
+                            // Effet de clic
+                            sendButton.style.transform = "scale(0.95)";
+                            setTimeout(() => {
+                                sendButton.style.transform = "scale(1)";
+                                
+                                // Transition après 1 seconde
+                                setTimeout(() => {
+                                    navigateToSection(3);
+                                }, 1000);
+                            }, 150);
+                        }
+                    });
+                }
+            });
+        }
+
+        // Section 4: Auto-critique avec effet de glitch
+        function initAutoCritique() {
+            const critiqueSection = document.getElementById('auto-critique');
+            
+            // Effet de glitch rapide
+            gsap.to(critiqueSection, {
+                duration: 0.1,
+                opacity: 0,
+                repeat: 5,
+                yoyo: true,
+                onComplete: () => {
+                    // Transition après 3 secondes
+                    setTimeout(() => {
+                        navigateToSection(4);
+                    }, 3000);
+                }
+            });
+        }
+
+        // Fonction pour animer le texte caractère par caractère
+        function animateText(element, text) {
+            // Vider l'élément
+            element.innerHTML = '';
+            
+            // Créer un span pour chaque caractère
+            text.split('').forEach(char => {
+                const span = document.createElement('span');
+                span.className = 'animated-char';
+                span.textContent = char === ' ' ? '\u00A0' : char;
+                element.appendChild(span);
+            });
+            
+            // Animer chaque caractère
+            const chars = element.querySelectorAll('.animated-char');
+            gsap.to(chars, {
+                duration: 0.5,
+                opacity: 1,
+                y: 0,
+                stagger: 0.05,
+                ease: "back.out(1.7)"
+            });
+        }
+
+        // Section 5: Montée émotionnelle - AMÉLIORÉE
+        function initEmotionalRise() {
+            const slides = document.querySelectorAll('.emotional-slide');
+            const parceQueText = document.getElementById('parce-que-text');
+            
+            // Animer "Parce que..." caractère par caractère
+            animateText(parceQueText, "Parce que...");
+            
+            let currentSlide = 0;
+            
+            // Fonction pour changer de slide
+            function showNextSlide() {
+                if (currentSlide < slides.length - 1) {
+                    gsap.to(slides[currentSlide], { 
+                        duration: 1, 
+                        opacity: 0,
+                        onComplete: () => {
+                            slides[currentSlide].classList.remove('active');
+                        }
+                    });
+                    
+                    currentSlide++;
+                    slides[currentSlide].classList.add('active');
+                    
+                    // Animation d'entrée pour le nouveau slide
+                    if (currentSlide === 1) {
+                        // Animation pour "Vous êtes spécial"
+                        const specialText = slides[currentSlide].querySelector('.emotional-text');
+                        gsap.fromTo(specialText, 
+                            { opacity: 0, y: 50 },
+                            { duration: 1, opacity: 1, y: 0, delay: 0.5 }
+                        );
+                    } else if (currentSlide === 2) {
+                        // Animation pour "Vous inspirez"
+                        const inspireText = slides[currentSlide].querySelector('.emotional-text');
+                        gsap.fromTo(inspireText, 
+                            { opacity: 0, scale: 0.8 },
+                            { duration: 1, opacity: 1, scale: 1, delay: 0.5 }
+                        );
+                    } else if (currentSlide === 3) {
+                        // Animation pour "Vous méritez mieux"
+                        const mieuxText = slides[currentSlide].querySelector('.emotional-text');
+                        gsap.fromTo(mieuxText, 
+                            { opacity: 0, rotationY: 90 },
+                            { duration: 1, opacity: 1, rotationY: 0, delay: 0.5 }
+                        );
+                    }
+                    
+                    // Appel récursif après délai
+                    setTimeout(showNextSlide, 2500);
+                } else {
+                    // Transition vers la section suivante après le dernier slide
+                    setTimeout(() => {
+                        navigateToSection(5);
+                    }, 2000);
+                }
+            }
+            
+            // Démarrer la séquence après l'animation de "Parce que..."
+            setTimeout(showNextSlide, 2000);
+        }
+
+        // Section 6: Graphique de croissance
+        function initGraphic() {
+            const canvas = document.getElementById('growth-chart');
+            const ctx = canvas.getContext('2d');
+            
+            // Ajuster la taille du canvas
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            
+            // Données pour le graphique
+            const data = [30, 45, 60, 75, 90, 120, 150];
+            const maxValue = Math.max(...data);
+            const padding = 50;
+            const graphWidth = canvas.width - padding * 2;
+            const graphHeight = canvas.height - padding * 2;
+            
+            // Fonction pour dessiner le graphique
+            function drawChart(progress) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Dessiner l'axe
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(padding, padding);
+                ctx.lineTo(padding, canvas.height - padding);
+                ctx.lineTo(canvas.width - padding, canvas.height - padding);
+                ctx.stroke();
+                
+                // Dessiner la courbe
+                ctx.strokeStyle = '#FFD700';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                
+                const pointsToDraw = Math.floor(data.length * progress);
+                
+                for (let i = 0; i < pointsToDraw; i++) {
+                    const x = padding + (i / (data.length - 1)) * graphWidth;
+                    const y = canvas.height - padding - (data[i] / maxValue) * graphHeight;
+                    
+                    if (i === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                
+                ctx.stroke();
+                
+                // Dessiner les points
+                for (let i = 0; i < pointsToDraw; i++) {
+                    const x = padding + (i / (data.length - 1)) * graphWidth;
+                    const y = canvas.height - padding - (data[i] / maxValue) * graphHeight;
+                    
+                    ctx.fillStyle = '#FFD700';
+                    ctx.beginPath();
+                    ctx.arc(x, y, 5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            // Animation du graphique
+            gsap.to({ progress: 0 }, {
+                duration: 3,
+                progress: 1,
+                onUpdate: function() {
+                    drawChart(this.targets()[0].progress);
+                },
+                onComplete: () => {
+                    // Transition après 2 secondes
+                    setTimeout(() => {
+                        navigateToSection(6);
+                    }, 2000);
+                }
+            });
+        }
+
+        // Section 7: Explosion festive - AMÉLIORÉE
+        function initCelebration() {
+            const celebrationSection = document.getElementById('celebration');
+            const balloonsContainer = document.getElementById('balloons-container');
+            const bossPhoto = document.getElementById('boss-photo');
+            
+            // Animation de la photo du boss
+            gsap.fromTo(bossPhoto, 
+                { scale: 0, rotation: -180 },
+                { duration: 1, scale: 1, rotation: 0, ease: "back.out(1.7)" }
+            );
+            
+            // Changer le fond progressivement
+            gsap.to(celebrationSection, {
+                duration: 2,
+                background: "linear-gradient(135deg, #4a90e2, #ff8c00, #ff0080, #8a2be2)",
+                ease: "power2.inOut"
+            });
+            
+            // URLs des images de ballons (remplacez par vos propres images)
+            const balloonImages = [
+                'https://images.unsplash.com/photo-1532161875345-0c258c93a530?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
+                'https://images.unsplash.com/photo-1504210354160-4b2fbc7fad71?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
+                'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
+                'https://images.unsplash.com/photo-1532161875345-0c258c93a530?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
+                'https://images.unsplash.com/photo-1504210354160-4b2fbc7fad71?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80'
+            ];
+            
+            // Créer des ballons avec images
+            for (let i = 0; i < 15; i++) {
+                const balloon = document.createElement('img');
+                balloon.className = 'balloon-img';
+                balloon.src = balloonImages[i % balloonImages.length];
+                balloon.alt = 'Ballon';
+                balloon.style.left = `${Math.random() * 100}%`;
+                
+                balloonsContainer.appendChild(balloon);
+                
+                // Animation des ballons
+                gsap.to(balloon, {
+                    duration: 8 + Math.random() * 5,
+                    y: -window.innerHeight - 200,
+                    x: `+=${(Math.random() - 0.5) * 200}`,
+                    rotation: 360,
+                    ease: "power1.out",
+                    delay: Math.random() * 3
+                });
+            }
+            
+            // Confettis réalistes avec plusieurs effets
+            function launchConfetti() {
+                // Confettis de base
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+                
+                // Confettis de côté gauche
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 50,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0, y: 0.6 }
+                    });
+                }, 250);
+                
+                // Confettis de côté droit
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 50,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1, y: 0.6 }
+                    });
+                }, 500);
+                
+                // Confettis en forme de étoiles
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 30,
+                        spread: 100,
+                        shapes: ['star'],
+                        colors: ['#FFD700', '#FFA500', '#FF6347']
+                    });
+                }, 750);
+            }
+            
+            // Lancer les confettis plusieurs fois
+            launchConfetti();
+            setTimeout(launchConfetti, 1500);
+            setTimeout(launchConfetti, 3000);
+            
+            // Transition après 6 secondes
+            setTimeout(() => {
+                navigateToSection(7);
+            }, 6000);
+        }
+
+        // Section 8: Partie collective
+        function initTeamSection() {
+            const teamButton = document.getElementById('team-button');
+            const cardsContainer = document.getElementById('cards-container');
+            
+            // Données des membres de l'équipe (exemple)
+            const teamMembers = [
+                { name: "Alice", message: "Merci pour votre leadership inspirant !", secret: "🎯" },
+                { name: "Bob", message: "Joyeux anniversaire à notre super Boss !", secret: "🚀" },
+                { name: "Charlie", message: "Votre vision nous pousse toujours vers l'excellence.", secret: "🌟" },
+                { name: "Diana", message: "Merci de croire en nous et en nos idées.", secret: "💫" }
+            ];
+            
+            // Créer les cartes
+            teamMembers.forEach(member => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-front">
+                        <h3>${member.name}</h3>
+                        <p>${member.message}</p>
+                    </div>
+                    <div class="card-back">
+                        <p>${member.secret}</p>
+                    </div>
+                `;
+                
+                // Effet flip au clic
+                card.addEventListener('click', function() {
+                    this.style.transform = this.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
+                });
+                
+                cardsContainer.appendChild(card);
+            });
+            
+            // Animation du bouton
+            teamButton.addEventListener('click', function() {
+                // Afficher les cartes avec animation
+                cardsContainer.style.display = 'block';
+                
+                // Animation d'apparition des cartes
+                gsap.fromTo(cardsContainer.children, 
+                    { opacity: 0, y: 50 },
+                    { opacity: 1, y: 0, duration: 0.5, stagger: 0.2 }
+                );
+            });
+            
+            // Permettre la navigation manuelle vers la section suivante
+            setTimeout(() => {
+                // Créer un bouton pour continuer
+                const continueButton = document.createElement('button');
+                continueButton.textContent = 'Continuer';
+                continueButton.style.cssText = `
+                    background: var(--light-blue);
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    margin-top: 20px;
+                    cursor: pointer;
+                    font-family: inherit;
+                `;
+                continueButton.addEventListener('click', () => {
+                    navigateToSection(8);
+                });
+                
+                document.querySelector('#team-section').appendChild(continueButton);
+            }, 3000);
+        }
+
+        // Section 9: Clôture
+        function initClosure() {
+            const closureSection = document.getElementById('closure');
+            
+            // Fade to dark progressif
+            gsap.to(closureSection, {
+                duration: 3,
+                backgroundColor: "#000000",
+                delay: 2
+            });
+        }
+
+        // Navigation entre sections
+        function navigateToSection(sectionIndex) {
+            // Masquer la section actuelle
+            sections[currentSection].style.display = 'none';
+            
+            // Mettre à jour le point actif
+            dots[currentSection].classList.remove('active');
+            
+            // Mettre à jour l'index et afficher la nouvelle section
+            currentSection = sectionIndex;
+            sections[currentSection].style.display = 'flex';
+            dots[currentSection].classList.add('active');
+            
+            // Initialiser la nouvelle section
+            switch(sectionIndex) {
+                case 0: initIntro(); break;
+                case 1: initRevelation(); break;
+                case 2: initMessageSimulation(); break;
+                case 3: initAutoCritique(); break;
+                case 4: initEmotionalRise(); break;
+                case 5: initGraphic(); break;
+                case 6: initCelebration(); break;
+                case 7: initTeamSection(); break;
+                case 8: initClosure(); break;
+            }
+        }
+
+        // Navigation par points
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                navigateToSection(index);
+            });
+        });
+
+        // Initialisation au chargement
+        window.addEventListener('DOMContentLoaded', () => {
+            // Masquer toutes les sections sauf la première
+            sections.forEach((section, index) => {
+                section.style.display = index === 0 ? 'flex' : 'none';
+            });
+            
+            // Démarrer avec la première section
+            initIntro();
+        });
+    </script>
+</body>
+</html>
