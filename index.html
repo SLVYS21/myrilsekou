@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boss's Birthday</title>
+    <title>Anniversaire du Boss</title>
     <!-- Polices -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
     <!-- Lottie -->
@@ -38,6 +38,31 @@
             color: var(--warm-white);
             overflow-x: hidden;
             min-height: 100vh;
+        }
+
+        /* Contrôle musique */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .music-control:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.1);
         }
 
         /* Sections générales */
@@ -139,7 +164,20 @@
             line-height: 1.6;
         }
 
-        /* Section 5: Montée émotionnelle - AMÉLIORÉE */
+        /* Section 5: Mérite mieux - NOUVELLE SECTION */
+        #better-deserve {
+            background: linear-gradient(135deg, var(--dark-gray), var(--night-blue));
+        }
+
+        .better-deserve-text {
+            font-size: 2.5rem;
+            font-style: italic;
+            color: var(--warm-white);
+            line-height: 1.6;
+            opacity: 0;
+        }
+
+        /* Section 6: Montée émotionnelle - MODIFIÉE */
         #emotional-rise {
             background: linear-gradient(135deg, var(--dark-gray), var(--night-blue));
         }
@@ -185,31 +223,35 @@
             transform: translateY(30px);
         }
 
-        /* Section 6: Graphique - FOND BLANC */
-        #graphic {
+        /* Section 7: SO - REMPLACE LE GRAPHIQUE */
+        #so-section {
             background-color: white;
             color: #333;
         }
 
-        .graphic-container {
-            width: 80%;
-            max-width: 800px;
-            height: 400px;
-            position: relative;
+        .so-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
         }
 
-        .chart {
-            width: 100%;
-            height: 100%;
+        .so-letter {
+            font-size: 15rem;
+            font-weight: bold;
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold);
+            opacity: 0;
+            transform: scale(0);
         }
 
-        .graphic-text {
-            font-size: 1.5rem;
-            margin-top: 2rem;
+        .so-text {
+            font-size: 2rem;
+            margin-top: 3rem;
             opacity: 0;
         }
 
-        /* Section 7: Explosion festive - FOND BLANC */
+        /* Section 8: Explosion festive - FOND BLANC */
         #celebration {
             background: white;
             color: #333;
@@ -231,24 +273,36 @@
             margin-bottom: 2rem;
         }
 
-        .boss-photo {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--gold);
+        /* Cadre rectangulaire pour la photo - PLUS GRAND */
+        .boss-photo-container {
+            width: 500px; /* Augmenté */
+            height: 375px; /* Augmenté */
             margin: 2rem auto;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            border: 10px solid var(--gold); /* Bordure plus épaisse */
+            border-radius: 20px; /* Coins plus arrondis */
+            padding: 15px; /* Plus d'espace intérieur */
+            background: white;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); /* Ombre plus prononcée */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .boss-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px; /* Coins arrondis pour la photo */
         }
 
         .balloon-img {
             position: absolute;
-            width: 80px;
+            width: 120px;
             height: auto;
             z-index: 1;
+            bottom: -150px;
         }
 
-        /* Section 8: Partie collective */
+        /* Section 9: Partie collective */
         #team-section {
             background-color: #f8f8f8;
             color: #333;
@@ -308,7 +362,7 @@
             border-radius: 10px;
         }
 
-        /* Section 9: Clôture */
+        /* Section 10: Clôture */
         #closure {
             background-color: var(--deep-black);
             transition: opacity 3s ease;
@@ -350,6 +404,10 @@
                 font-size: 2rem;
             }
             
+            .better-deserve-text {
+                font-size: 2rem;
+            }
+            
             .celebration-text {
                 font-size: 2.5rem;
             }
@@ -364,26 +422,44 @@
                 font-size: 1.2rem;
             }
             
-            .boss-photo {
-                width: 150px;
-                height: 150px;
+            .boss-photo-container {
+                width: 350px;
+                height: 262px;
+            }
+            
+            .so-letter {
+                font-size: 8rem;
+            }
+            
+            .so-text {
+                font-size: 1.5rem;
             }
             
             .balloon-img {
-                width: 60px;
+                width: 90px;
+            }
+            
+            .music-control {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Contrôle musique -->
+    <button class="music-control" id="musicControl">🎵</button>
+
     <!-- Navigation par points -->
     <div class="nav-dots">
         <div class="dot active" data-section="intro"></div>
         <div class="dot" data-section="revelation"></div>
         <div class="dot" data-section="message-simulation"></div>
         <div class="dot" data-section="auto-critique"></div>
+        <div class="dot" data-section="better-deserve"></div>
         <div class="dot" data-section="emotional-rise"></div>
-        <div class="dot" data-section="graphic"></div>
+        <div class="dot" data-section="so-section"></div>
         <div class="dot" data-section="celebration"></div>
         <div class="dot" data-section="team-section"></div>
         <div class="dot" data-section="closure"></div>
@@ -409,8 +485,8 @@
                 <lottie-player 
                     id="send-lottie"
                     src="https://assets1.lottiefiles.com/packages/lf20_gns0r2jq.json" 
-                    background="transparent"
-                    speed="1"
+                    background="transparent" 
+                    speed="1" 
                     style="width: 24px; height: 24px; display: inline-block; vertical-align: middle;"
                     autoplay>
                 </lottie-player>
@@ -427,7 +503,14 @@
         </div>
     </section>
 
-    <!-- Section 5: Montée émotionnelle - AMÉLIORÉE -->
+    <!-- Section 5: Mérite mieux - NOUVELLE SECTION -->
+    <section id="better-deserve">
+        <div class="better-deserve-text" id="better-deserve-text">
+            Vous méritez quelque chose de mieux...
+        </div>
+    </section>
+
+    <!-- Section 6: Montée émotionnelle - MODIFIÉE -->
     <section id="emotional-rise">
         <div class="emotional-slide active" id="slide1">
             <div class="emotional-text cursive">
@@ -440,33 +523,29 @@
         <div class="emotional-slide" id="slide3">
             <div class="emotional-text">Vous <span class="highlight">inspirez</span>.</div>
         </div>
-        <div class="emotional-slide" id="slide4">
-            <div class="emotional-text">Vous méritez <span class="highlight">mieux</span>.</div>
-        </div>
     </section>
 
-    <!-- Section 6: Graphique - FOND BLANC -->
-    <section id="graphic">
-        <div class="graphic-container">
-            <canvas id="growth-chart" class="chart"></canvas>
+    <!-- Section 7: SO - REMPLACE LE GRAPHIQUE -->
+    <section id="so-section">
+        <div class="so-container">
+            <div class="so-letter" id="letter-s">S</div>
+            <div class="so-letter" id="letter-o">O</div>
         </div>
-        <div class="graphic-text" id="graphic-text">Chaque année, avec vous, nous allons plus haut.</div>
+        <div class="so-text" id="so-text">Simplement Exceptionnel</div>
     </section>
 
-    <!-- Section 7: Explosion festive - FOND BLANC -->
+    <!-- Section 8: Explosion festive - FOND BLANC -->
     <section id="celebration">
         <div class="celebration-content">
             <div class="celebration-text">Happy Birthday to You 🎂</div>
             
-            <!-- Photo du Boss (à remplacer par votre photo locale) -->
-            <img src="img.png" alt="Notre Boss" class="boss-photo" id="boss-photo" onerror="this.style.display='none'">
-            
-            <!-- Message de remplacement si la photo ne charge pas -->
-            <div id="photo-placeholder" style="display: none;">
-                <div style="width: 200px; height: 200px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; margin: 2rem auto; border: 4px solid var(--gold);">
-                    <span style="font-size: 3rem; color: white;">🎉</span>
+            <!-- Cadre rectangulaire pour la photo - PLUS GRAND -->
+            <div class="boss-photo-container">
+                <img src="img.png" alt="Notre Boss" class="boss-photo" id="boss-photo" onerror="this.style.display='none'">
+                <!-- Message de remplacement si la photo ne charge pas -->
+                <div id="photo-placeholder" style="display: none; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(45deg, #FFD700, #FFA500); border-radius: 12px;">
+                    <span style="font-size: 5rem; color: white;">🎉</span>
                 </div>
-                <p style="font-size: 1.2rem; margin-top: 1rem;">Joyeux Anniversaire !</p>
             </div>
         </div>
         
@@ -474,7 +553,7 @@
         <div id="balloons-container"></div>
     </section>
 
-    <!-- Section 8: Partie collective -->
+    <!-- Section 9: Partie collective -->
     <section id="team-section">
         <button class="team-button" id="team-button">Voir les vœux de l'équipe</button>
         <div class="cards-container" id="cards-container">
@@ -482,7 +561,7 @@
         </div>
     </section>
 
-    <!-- Section 9: Clôture -->
+    <!-- Section 10: Clôture -->
     <section id="closure">
         <div class="closure-text">
             Un leader ne crée pas seulement du travail,<br>
@@ -498,6 +577,47 @@
         let currentSection = 0;
         const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
+        let musicPlaying = false;
+        let backgroundMusic;
+
+        // Gestion de la musique
+        function initMusic() {
+            backgroundMusic = new Audio('happy.ogg');
+            backgroundMusic.loop = true;
+            backgroundMusic.volume = 0.7;
+
+            const musicControl = document.getElementById('musicControl');
+            
+            musicControl.addEventListener('click', function() {
+                if (musicPlaying) {
+                    backgroundMusic.pause();
+                    musicControl.textContent = '🎵';
+                    musicPlaying = false;
+                } else {
+                    backgroundMusic.play().catch(e => {
+                        console.log("Lecture audio bloquée, nécessite une interaction utilisateur");
+                        // Active la musique après la première interaction
+                        document.addEventListener('click', function enableMusic() {
+                            backgroundMusic.play();
+                            document.removeEventListener('click', enableMusic);
+                        }, { once: true });
+                    });
+                    musicControl.textContent = '🔇';
+                    musicPlaying = true;
+                }
+            });
+
+            // Démarrer la musique automatiquement après un délai
+            setTimeout(() => {
+                if (!musicPlaying) {
+                    backgroundMusic.play().catch(e => {
+                        console.log("Lecture automatique bloquée");
+                    });
+                    musicControl.textContent = '🔇';
+                    musicPlaying = true;
+                }
+            }, 2000);
+        }
 
         // Section 1: Introduction avec effet machine à écrire
         function initIntro() {
@@ -508,16 +628,16 @@
             const options = { day: 'numeric', month: 'long', year: 'numeric' };
             const dateString = `Aujourd'hui, ${today.toLocaleDateString('fr-FR', options)}...`;
             
-            // Effet machine à écrire
+            // Effet machine à écrire (0.75x plus rapide)
             gsap.to(dateText, {
-                duration: 3,
+                duration: 2.25, // 3 * 0.75
                 text: dateString,
                 ease: "none",
                 onComplete: () => {
-                    // Après 2 secondes, transition vers la section suivante
+                    // Après 1.5 secondes, transition vers la section suivante
                     setTimeout(() => {
                         navigateToSection(1);
-                    }, 2000);
+                    }, 1500); // 2000 * 0.75
                 }
             });
         }
@@ -527,9 +647,9 @@
             const bossText = document.getElementById('boss-text');
             const bossName = document.querySelector('.boss-name');
             
-            // Animation d'apparition progressive du texte
+            // Animation d'apparition progressive du texte (0.75x plus rapide)
             gsap.to(bossText, {
-                duration: 1.5,
+                duration: 1.125, // 1.5 * 0.75
                 opacity: 1,
                 ease: "power2.out",
                 onComplete: () => {
@@ -537,7 +657,7 @@
                     gsap.fromTo(bossName, 
                         { scale: 0, opacity: 0, rotationY: 180 },
                         { 
-                            duration: 1, 
+                            duration: 0.75, // 1 * 0.75
                             scale: 1, 
                             opacity: 1, 
                             rotationY: 0, 
@@ -545,7 +665,7 @@
                             onComplete: () => {
                                 // Petite animation de pulse sur "Boss"
                                 gsap.to(bossName, {
-                                    duration: 0.5,
+                                    duration: 0.375, // 0.5 * 0.75
                                     scale: 1.1,
                                     repeat: 1,
                                     yoyo: true,
@@ -557,10 +677,10 @@
                 }
             });
             
-            // Transition après 4 secondes
+            // Transition après 3 secondes
             setTimeout(() => {
                 navigateToSection(2);
-            }, 4000);
+            }, 3000); // 4000 * 0.75
         }
 
         // Section 3: Simulation d'envoi de message
@@ -568,15 +688,15 @@
             const messageInput = document.getElementById('message-input');
             const sendButton = document.getElementById('send-button');
             
-            // Texte qui s'écrit automatiquement
+            // Texte qui s'écrit automatiquement (0.75x plus rapide)
             gsap.to(messageInput, {
-                duration: 4,
+                duration: 3, // 4 * 0.75
                 text: "Happy Birthday, meilleurs vœux...",
                 ease: "none",
                 onComplete: () => {
                     // Animation du bouton
                     gsap.to(sendButton, {
-                        duration: 0.5,
+                        duration: 0.375, // 0.5 * 0.75
                         scale: 1.1,
                         repeat: 3,
                         yoyo: true,
@@ -586,10 +706,10 @@
                             setTimeout(() => {
                                 sendButton.style.transform = "scale(1)";
                                 
-                                // Transition après 1 seconde
+                                // Transition après 0.75 seconde
                                 setTimeout(() => {
                                     navigateToSection(3);
-                                }, 1000);
+                                }, 750); // 1000 * 0.75
                             }, 150);
                         }
                     });
@@ -608,10 +728,28 @@
                 repeat: 5,
                 yoyo: true,
                 onComplete: () => {
-                    // Transition après 3 secondes
+                    // Transition après 2.25 secondes
                     setTimeout(() => {
                         navigateToSection(4);
-                    }, 3000);
+                    }, 2250); // 3000 * 0.75
+                }
+            });
+        }
+
+        // Section 5: Mérite mieux - NOUVELLE SECTION
+        function initBetterDeserve() {
+            const betterDeserveText = document.getElementById('better-deserve-text');
+            
+            // Animation d'apparition du texte
+            gsap.to(betterDeserveText, {
+                duration: 1.5,
+                opacity: 1,
+                ease: "power2.out",
+                onComplete: () => {
+                    // Transition après 2 secondes
+                    setTimeout(() => {
+                        navigateToSection(5);
+                    }, 2000);
                 }
             });
         }
@@ -629,18 +767,18 @@
                 element.appendChild(span);
             });
             
-            // Animer chaque caractère
+            // Animer chaque caractère (0.75x plus rapide)
             const chars = element.querySelectorAll('.animated-char');
             gsap.to(chars, {
-                duration: 0.5,
+                duration: 0.375, // 0.5 * 0.75
                 opacity: 1,
                 y: 0,
-                stagger: 0.05,
+                stagger: 0.0375, // 0.05 * 0.75
                 ease: "back.out(1.7)"
             });
         }
 
-        // Section 5: Montée émotionnelle - AMÉLIORÉE
+        // Section 6: Montée émotionnelle - MODIFIÉE
         function initEmotionalRise() {
             const slides = document.querySelectorAll('.emotional-slide');
             const parceQueText = document.getElementById('parce-que-text');
@@ -654,17 +792,17 @@
                         const slide = slides[slideIndex];
                         const textElement = slide.querySelector('.emotional-text');
                         
-                        // Animation d'entrée selon le slide
+                        // Animation d'entrée selon le slide (0.75x plus rapide)
                         if (slideIndex === 0) {
                             // "Parce que..." avec animation caractère par caractère
                             animateText(parceQueText, "Parce que...");
-                            setTimeout(resolve, 2000);
+                            setTimeout(resolve, 1500); // 2000 * 0.75
                         } else if (slideIndex === 1) {
                             // "Vous êtes spécial" avec animation progressive
                             gsap.fromTo(textElement, 
                                 { opacity: 0, y: 50 },
                                 { 
-                                    duration: 1.5, 
+                                    duration: 1.125, // 1.5 * 0.75
                                     opacity: 1, 
                                     y: 0,
                                     ease: "power2.out",
@@ -676,22 +814,10 @@
                             gsap.fromTo(textElement, 
                                 { opacity: 0, scale: 0.8 },
                                 { 
-                                    duration: 1.5, 
+                                    duration: 1.125, // 1.5 * 0.75
                                     opacity: 1, 
                                     scale: 1,
                                     ease: "back.out(1.7)",
-                                    onComplete: resolve
-                                }
-                            );
-                        } else if (slideIndex === 3) {
-                            // "Vous méritez mieux" avec rotation
-                            gsap.fromTo(textElement, 
-                                { opacity: 0, rotationY: 90 },
-                                { 
-                                    duration: 1.5, 
-                                    opacity: 1, 
-                                    rotationY: 0,
-                                    ease: "power2.out",
                                     onComplete: resolve
                                 }
                             );
@@ -700,11 +826,11 @@
                 });
             }
             
-            // Fonction pour cacher un slide
+            // Fonction pour cacher un slide (0.75x plus rapide)
             function hideSlide(slideIndex) {
                 return new Promise(resolve => {
                     gsap.to(slides[slideIndex], { 
-                        duration: 1, 
+                        duration: 0.75, // 1 * 0.75
                         opacity: 0,
                         onComplete: () => {
                             slides[slideIndex].classList.remove('active');
@@ -719,129 +845,72 @@
                 // Slide 1: "Parce que..."
                 slides[0].classList.add('active');
                 await animateSlide(0);
-                await new Promise(resolve => setTimeout(resolve, 2000)); // Pause
+                await new Promise(resolve => setTimeout(resolve, 1500)); // Pause 2000 * 0.75
                 
                 // Transition vers Slide 2
                 await hideSlide(0);
                 slides[1].classList.add('active');
                 await animateSlide(1);
-                await new Promise(resolve => setTimeout(resolve, 2000)); // Pause
+                await new Promise(resolve => setTimeout(resolve, 1500)); // Pause 2000 * 0.75
                 
                 // Transition vers Slide 3
                 await hideSlide(1);
                 slides[2].classList.add('active');
                 await animateSlide(2);
-                await new Promise(resolve => setTimeout(resolve, 2000)); // Pause
-                
-                // Transition vers Slide 4
-                await hideSlide(2);
-                slides[3].classList.add('active');
-                await animateSlide(3);
-                await new Promise(resolve => setTimeout(resolve, 2000)); // Pause
+                await new Promise(resolve => setTimeout(resolve, 1500)); // Pause 2000 * 0.75
                 
                 // Transition vers la section suivante
-                navigateToSection(5);
+                navigateToSection(6);
             }
             
             // Démarrer la séquence
             runSlideShow();
         }
 
-        // Section 6: Graphique de croissance - AMÉLIORÉE
-        function initGraphic() {
-            const canvas = document.getElementById('growth-chart');
-            const ctx = canvas.getContext('2d');
-            const graphicText = document.getElementById('graphic-text');
+        // Section 7: SO - REMPLACE LE GRAPHIQUE
+        function initSOSection() {
+            const letterS = document.getElementById('letter-s');
+            const letterO = document.getElementById('letter-o');
+            const soText = document.getElementById('so-text');
             
-            // Ajuster la taille du canvas
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-            
-            // Données pour le graphique
-            const data = [30, 45, 60, 75, 90, 120, 150];
-            const labels = ['2018', '2019', '2020', '2021', '2022', '2023', '2024'];
-            const maxValue = Math.max(...data);
-            const padding = 50;
-            const graphWidth = canvas.width - padding * 2;
-            const graphHeight = canvas.height - padding * 2;
-            
-            // Fonction pour dessiner le graphique
-            function drawChart(progress) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Dessiner l'axe
-                ctx.strokeStyle = '#333';
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.moveTo(padding, padding);
-                ctx.lineTo(padding, canvas.height - padding);
-                ctx.lineTo(canvas.width - padding, canvas.height - padding);
-                ctx.stroke();
-                
-                // Dessiner la courbe
-                ctx.strokeStyle = '#FFD700';
-                ctx.lineWidth = 4;
-                ctx.beginPath();
-                
-                const pointsToDraw = Math.floor(data.length * progress);
-                
-                for (let i = 0; i < pointsToDraw; i++) {
-                    const x = padding + (i / (data.length - 1)) * graphWidth;
-                    const y = canvas.height - padding - (data[i] / maxValue) * graphHeight;
-                    
-                    if (i === 0) {
-                        ctx.moveTo(x, y);
-                    } else {
-                        ctx.lineTo(x, y);
-                    }
-                }
-                
-                ctx.stroke();
-                
-                // Dessiner les points
-                for (let i = 0; i < pointsToDraw; i++) {
-                    const x = padding + (i / (data.length - 1)) * graphWidth;
-                    const y = canvas.height - padding - (data[i] / maxValue) * graphHeight;
-                    
-                    ctx.fillStyle = '#FFD700';
-                    ctx.beginPath();
-                    ctx.arc(x, y, 6, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    // Dessiner les labels
-                    ctx.fillStyle = '#333';
-                    ctx.font = '14px Arial';
-                    ctx.textAlign = 'center';
-                    ctx.fillText(labels[i], x, canvas.height - padding + 20);
-                }
-            }
-            
-            // Animation du graphique
-            gsap.to({ progress: 0 }, {
-                duration: 3,
-                progress: 1,
-                onUpdate: function() {
-                    drawChart(this.targets()[0].progress);
-                },
+            // Animation du S
+            gsap.to(letterS, {
+                duration: 1,
+                opacity: 1,
+                scale: 1,
+                ease: "back.out(1.7)",
                 onComplete: () => {
-                    // Animation du texte après le graphique
-                    gsap.to(graphicText, {
-                        duration: 1,
-                        opacity: 1,
-                        y: 0,
-                        ease: "power2.out",
-                        onComplete: () => {
-                            // Transition après 2 secondes
-                            setTimeout(() => {
-                                navigateToSection(6);
-                            }, 2000);
-                        }
-                    });
+                    // Animation du O après le S
+                    setTimeout(() => {
+                        gsap.to(letterO, {
+                            duration: 1,
+                            opacity: 1,
+                            scale: 1,
+                            ease: "back.out(1.7)",
+                            onComplete: () => {
+                                // Animation du texte après les lettres
+                                setTimeout(() => {
+                                    gsap.to(soText, {
+                                        duration: 1,
+                                        opacity: 1,
+                                        y: 0,
+                                        ease: "power2.out",
+                                        onComplete: () => {
+                                            // Transition après 2 secondes
+                                            setTimeout(() => {
+                                                navigateToSection(7);
+                                            }, 2000);
+                                        }
+                                    });
+                                }, 500);
+                            }
+                        });
+                    }, 500);
                 }
             });
         }
 
-        // Section 7: Explosion festive - AMÉLIORÉE
+        // Section 8: Explosion festive - AMÉLIORÉE
         function initCelebration() {
             const celebrationSection = document.getElementById('celebration');
             const balloonsContainer = document.getElementById('balloons-container');
@@ -852,31 +921,30 @@
             setTimeout(() => {
                 if (bossPhoto.naturalWidth === 0) {
                     // La photo n'a pas chargé, afficher le placeholder
-                    photoPlaceholder.style.display = 'block';
+                    photoPlaceholder.style.display = 'flex';
                     // Animation du placeholder
                     gsap.fromTo(photoPlaceholder, 
                         { scale: 0, opacity: 0 },
-                        { duration: 1, scale: 1, opacity: 1, ease: "back.out(1.7)" }
+                        { duration: 0.75, scale: 1, opacity: 1, ease: "back.out(1.7)" } // 1 * 0.75
                     );
                 }
-            }, 1000);
+            }, 750); // 1000 * 0.75
             
             // Animation de la photo du boss si elle existe
             if (bossPhoto.naturalWidth > 0) {
                 gsap.fromTo(bossPhoto, 
                     { scale: 0, rotation: -180 },
-                    { duration: 1, scale: 1, rotation: 0, ease: "back.out(1.7)" }
+                    { duration: 0.75, scale: 1, rotation: 0, ease: "back.out(1.7)" } // 1 * 0.75
                 );
             }
             
-            // URLs des images de ballons (remplacez par vos propres images)
+            // URLs des images de ballons
             const balloonImages = [
                 './ballon3.svg',
                 './ballon2.svg',
                 './ballon1.svg'
-            ];
-            
-            // Créer des ballons avec images
+            ];            
+            // Créer des ballons avec images (plus grands et partant d'en bas)
             for (let i = 0; i < 15; i++) {
                 const balloon = document.createElement('img');
                 balloon.className = 'balloon-img';
@@ -942,13 +1010,13 @@
             setTimeout(launchConfetti, 1500);
             setTimeout(launchConfetti, 3000);
             
-            // Transition après 6 secondes
+            // Transition après 4.5 secondes
             setTimeout(() => {
-                navigateToSection(7);
-            }, 6000);
+                navigateToSection(8);
+            }, 4500); // 6000 * 0.75
         }
 
-        // Section 8: Partie collective
+        // Section 9: Partie collective
         function initTeamSection() {
             const teamButton = document.getElementById('team-button');
             const cardsContainer = document.getElementById('cards-container');
@@ -1009,22 +1077,22 @@
                     font-family: inherit;
                 `;
                 continueButton.addEventListener('click', () => {
-                    navigateToSection(8);
+                    navigateToSection(9);
                 });
                 
                 document.querySelector('#team-section').appendChild(continueButton);
-            }, 3000);
+            }, 2250); // 3000 * 0.75
         }
 
-        // Section 9: Clôture
+        // Section 10: Clôture
         function initClosure() {
             const closureSection = document.getElementById('closure');
             
-            // Fade to dark progressif
+            // Fade to dark progressif (0.75x plus rapide)
             gsap.to(closureSection, {
-                duration: 3,
+                duration: 2.25, // 3 * 0.75
                 backgroundColor: "#000000",
-                delay: 2
+                delay: 1.5 // 2 * 0.75
             });
         }
 
@@ -1047,11 +1115,12 @@
                 case 1: initRevelation(); break;
                 case 2: initMessageSimulation(); break;
                 case 3: initAutoCritique(); break;
-                case 4: initEmotionalRise(); break;
-                case 5: initGraphic(); break;
-                case 6: initCelebration(); break;
-                case 7: initTeamSection(); break;
-                case 8: initClosure(); break;
+                case 4: initBetterDeserve(); break;
+                case 5: initEmotionalRise(); break;
+                case 6: initSOSection(); break;
+                case 7: initCelebration(); break;
+                case 8: initTeamSection(); break;
+                case 9: initClosure(); break;
             }
         }
 
@@ -1068,6 +1137,9 @@
             sections.forEach((section, index) => {
                 section.style.display = index === 0 ? 'flex' : 'none';
             });
+            
+            // Initialiser la musique
+            initMusic();
             
             // Démarrer avec la première section
             initIntro();
